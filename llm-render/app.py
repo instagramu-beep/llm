@@ -87,7 +87,6 @@
 
 
 
-
 from fastapi import FastAPI
 from llama_cpp import Llama
 from huggingface_hub import hf_hub_download
@@ -152,9 +151,5 @@ def generate(prompt: str):
     )
 
     return {
-        "response": output["choices"][0]["text"].strip()
-    }
-#     return {
-#         "prompt": prompt,
         "response": output["choices"][0]["text"].strip()
     }
