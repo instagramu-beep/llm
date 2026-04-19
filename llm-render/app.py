@@ -1,24 +1,23 @@
 from fastapi import FastAPI
 from llama_cpp import Llama
 from huggingface_hub import hf_hub_download
-import os
 
 app = FastAPI()
 
-print("Downloading model (first run only)...")
+print("Downloading small model...")
 
 model_path = hf_hub_download(
-    repo_id="TheBloke/Phi-3-mini-GGUF",
-    filename="phi-3-mini-instruct.Q4_K_M.gguf"
+    repo_id="Qwen/Qwen1.5-0.5B-Chat-GGUF",
+    filename="qwen1_5-0_5b-chat-q4_0.gguf"
 )
 
-print("Model loaded at:", model_path)
+print("Model ready:", model_path)
 
 llm = Llama(
     model_path=model_path,
-    n_ctx=512,
-    n_threads=2,
-    n_batch=128
+    n_ctx=256,        # small context to save RAM
+    n_threads=1,      # low CPU (Render free)
+    n_batch=64
 )
 
 @app.get("/")
@@ -29,9 +28,8 @@ def home():
 def generate(prompt: str):
     output = llm(
         prompt,
-        max_tokens=100,
-        temperature=0.7,
-        stop=["</s>"]
+        max_tokens=50,
+        temperature=0.7
     )
 
     return {
