@@ -150,6 +150,6 @@ def generate(prompt: str):
 #         temperature=0.7
 #     )
 
-    return {
-        "response": output["choices"][0]["text"].strip()
-    }
+    # return {
+    #     "response": output["choices"][0]["text"].strip()
+    # }
