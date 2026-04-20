@@ -67,7 +67,6 @@ llm = Llama(
 def home():
     return {"status": "LLM is running"}
 
-
 @app.get("/generate")
 def generate(prompt: str):
     # Proper chat format (VERY IMPORTANT)
@@ -79,11 +78,11 @@ def generate(prompt: str):
         temperature=0.7,
         stop=["<|end|>", "<|user|>"]
     )
-   return {
+
+    return {
         "prompt": prompt,
         "response": output["choices"][0]["text"].strip()
     }
-
 
 
 
